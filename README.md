@@ -1,18 +1,15 @@
-# Project CSOM Read Enterprise CustomFields
+# Project-CSOM-My-Task-Checklist
 
-The Project CSOM Read Enterprise CustomFields sample uses C# and Project CSOM to demonstrate how to read enterprise custom fields (ECFs) that are defined at the Project Online Web App (PWA) instance and read the ECFs that are defined in each project.
-
-Users typically access ECFs by viewing the Project Details page for a specific project stored in the PWA instance.  
+The Project CSOM My Checklist sample uses C# and Project CSOM to demonstrate how to assignments assigned to the current user and submit status indicating that the tasks are complete.
 
 ## Scenario
 
-As a Project/Program/Portfolio portfolio manager, I would like to use an app that displays the custom values my company has associated with our projects.
-
+As a project team member, I want an easy way to see the tasks assigned to me and can check them off when complete.
 
 ### Using App
 
 1.	Add the Project CSOM client package [here](https://www.nuget.org/packages/Microsoft.SharePointOnline.CSOM/)
-2.	Update the PWA site
+2.	Update the PWA site and click connect
 3.	Update the login/password to your PWA site.
 4.	Run the app
 
@@ -26,12 +23,9 @@ To use this code sample, you need the following:
 
 
 ## How the sample affects your tenant data
-This sample runs CSOM methods that reads all projects in the PWA instance for the specified user. Tenant data will not be changed nor deleted.
+This sample runs CSOM methods that reads all assignments in the PWA instance for the specified user. Tenant data will be changed if assignments are checked/unchecked and submitted.
 
 ## Additional resources
-* [Local and Enterprise Custom Fields](https://msdn.microsoft.com/en-us/library/office/ms447495(v=office.14).aspx)
-
-* [ProjectContext class](https://msdn.microsoft.com/en-us/library/office/microsoft.projectserver.client.projectcontext_di_pj14mref.aspx)
 
 * [Client-side object model (CSOM) for Project 2013](https://aka.ms/project-csom-docs)
 
@@ -40,4 +34,5 @@ This sample runs CSOM methods that reads all projects in the PWA instance for th
 ## Copyright
 
 Copyright (c) 2016 Microsoft. All rights reserved.
+
 
