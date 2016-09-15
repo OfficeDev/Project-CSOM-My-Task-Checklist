@@ -1,6 +1,6 @@
 # Project-CSOM-My-Task-Checklist
 
-The Project CSOM My Checklist sample uses C# and Project CSOM to demonstrate how to assignments assigned to the current user and submit status indicating that the tasks are complete.
+The Project CSOM My Task Checklist sample uses C# and Project CSOM to demonstrate how to assignments assigned to the current user and submit status indicating that the tasks are complete.
 
 ## Scenario
 
