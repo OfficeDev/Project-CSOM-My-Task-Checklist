@@ -1,3 +1,14 @@
+---
+topic: sample
+products:
+- Project
+- Office 365
+languages:
+- C#
+extensions:
+  contentType: samples
+  createdDate: 9/15/2016 1:39:55 PM
+---
 # Project-CSOM-My-Task-Checklist
 
 The Project CSOM My Task Checklist sample uses C# and Project CSOM to demonstrate how to assignments assigned to the current user and submit status indicating that the tasks are complete.
