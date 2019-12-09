@@ -14,6 +14,9 @@ namespace MSDN.Samples.ClaimsAuth
     /// </summary>
     public class ClaimsWebAuth : IDisposable
     {
+        // Set this to TRUE, if you want the session to be persisted.
+        private static bool PersistSession = false;
+
         #region Construction
 
         /// <summary>
@@ -26,6 +29,11 @@ namespace MSDN.Samples.ClaimsAuth
         {
             if (string.IsNullOrEmpty(targetSiteUrl)) throw new ArgumentException(Constants.MSG_REQUIRED_SITE_URL);
             this.fldTargetSiteUrl = targetSiteUrl;
+
+            if (!PersistSession)
+            {
+                CookieReader.SupressCookiePersist();
+            }
 
             // set login page url and success url from target site
             this.GetClaimParams(this.fldTargetSiteUrl, out this.fldLoginPageUrl, out  this.fldNavigationEndUrl);
@@ -156,6 +164,12 @@ namespace MSDN.Samples.ClaimsAuth
 
             DisplayLoginForm.ShowDialog();
 
+            if (!PersistSession)
+            {
+                CookieReader.SupressCookiePersistReset();
+                CookieReader.ClearSession();
+            }
+
             // see ClaimsWebBrowser_Navigated event
             return this.fldCookies;
         }
@@ -207,7 +221,11 @@ namespace MSDN.Samples.ClaimsAuth
             Uri uri = new Uri(uriBase, "/");
             // call WinInet.dll to get cookie.
             string stringCookie = CookieReader.GetCookie(uri.ToString());
-            if (string.IsNullOrEmpty(stringCookie)) return null;
+            if (string.IsNullOrEmpty(stringCookie) || !stringCookie.Contains("FedAuth"))
+            {
+                return null;
+            }
+
             stringCookie = stringCookie.Replace("; ", ",").Replace(";", ",");
             // use CookieContainer to parse the string cookie to CookieCollection
             CookieContainer cookieContainer = new CookieContainer();
@@ -222,10 +240,13 @@ namespace MSDN.Samples.ClaimsAuth
         private void ClaimsWebBrowser_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
             // check whether the url is same as the navigationEndUrl.
-            if (fldNavigationEndUrl != null && fldNavigationEndUrl.Equals(e.Url))
+            if (fldNavigationEndUrl != null && fldNavigationEndUrl.Host.Equals(e.Url.Host))
             {
                 this.fldCookies = ExtractAuthCookiesFromUrl(this.LoginPageUrl);
-                this.DisplayLoginForm.Close();
+                if (fldCookies != null)
+                {
+                    this.DisplayLoginForm.Close();
+                }
             }
         }
        
